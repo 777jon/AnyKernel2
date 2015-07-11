@@ -3,19 +3,19 @@
 
 ## AnyKernel setup
 # EDIFY properties
-kernel.string=DirtyV by bsmitty83 @ xda-developers
+kernel.string=777 Kernel for the LG G3
 do.devicecheck=1
 do.initd=1
 do.modules=0
-do.cleanup=1
-device.name1=maguro
-device.name2=toro
-device.name3=toroplus
-device.name4=
-device.name5=
+do.cleanup=0
+device.name1=vs985
+device.name2=LG G3
+device.name3=LG
+device.name4=LGE
+device.name5=G3
 
 # shell variables
-block=/dev/block/platform/omap/omap_hsmmc.0/by-name/boot;
+block=/dev/block/platform/msm_sdcc.1/by-name/boot;
 
 ## end setup
 
@@ -80,6 +80,7 @@ write_boot() {
     ui_print " "; ui_print "Repacking image failed. Aborting...";
     echo 1 > /tmp/anykernel/exitcode; exit;
   fi;
+  dd if=$bin/bump bs=1 count=32 >> /tmp/anykernel/boot-new.img
   dd if=/tmp/anykernel/boot-new.img of=$block;
 }
 
@@ -149,7 +150,6 @@ replace_file() {
 ## AnyKernel permissions
 # set permissions for included files
 chmod -R 755 $ramdisk
-chmod 644 $ramdisk/sbin/media_profiles.xml
 
 
 ## AnyKernel install
@@ -157,32 +157,9 @@ dump_boot;
 
 # begin ramdisk changes
 
-# init.rc
-backup_file init.rc;
-replace_string init.rc "cpuctl cpu,timer_slack" "mount cgroup none /dev/cpuctl cpu" "mount cgroup none /dev/cpuctl cpu,timer_slack";
-append_file init.rc "run-parts" init;
-
-# init.tuna.rc
-backup_file init.tuna.rc;
-insert_line init.tuna.rc "nodiratime barrier=0" after "mount_all /fstab.tuna" "\tmount ext4 /dev/block/platform/omap/omap_hsmmc.0/by-name/userdata /data remount nosuid nodev noatime nodiratime barrier=0\n";
-append_file init.tuna.rc "dvbootscript" init.tuna;
-
-# init.superuser.rc
-if [ -f init.superuser.rc ]; then
-  backup_file init.superuser.rc;
-  replace_string init.superuser.rc "Superuser su_daemon" "# su daemon" "\n# Superuser su_daemon";
-  prepend_file init.superuser.rc "SuperSU daemonsu" init.superuser;
-else
-  replace_file init.superuser.rc 750 init.superuser.rc;
-  insert_line init.rc "init.superuser.rc" after "on post-fs-data" "    import /init.superuser.rc\n";
-fi;
-
-# fstab.tuna
-backup_file fstab.tuna;
-replace_line fstab.tuna "/by-name/system" "/dev/block/platform/omap/omap_hsmmc.0/by-name/system    /system             ext4      nodev,noatime,nodiratime,barrier=0,data=writeback,noauto_da_alloc,discard    wait";
-replace_line fstab.tuna "/by-name/cache" "/dev/block/platform/omap/omap_hsmmc.0/by-name/cache     /cache              ext4      nosuid,nodev,noatime,nodiratime,errors=panic,barrier=0,nomblk_io_submit,data=writeback,noauto_da_alloc    wait,check";
-replace_line fstab.tuna "/by-name/userdata" "/dev/block/platform/omap/omap_hsmmc.0/by-name/userdata  /data               ext4      nosuid,nodev,noatime,errors=panic,nomblk_io_submit,data=writeback,noauto_da_alloc    wait,check,encryptable=/dev/block/platform/omap/omap_hsmmc.0/by-name/metadata";
-append_file fstab.tuna "usbdisk" fstab;
+# init.g3.rc
+backup_file init.g3.rc;
+append_file init.g3.rc "777-post_boot" init.g3.patch;
 
 # end ramdisk changes
 

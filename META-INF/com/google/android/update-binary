@@ -79,5 +79,6 @@ fi;
 
 umount /system;
 ui_print " ";
-ui_print "Done!";
+ui_print "Done! Enjoy :)";
+ui_print " ";
 

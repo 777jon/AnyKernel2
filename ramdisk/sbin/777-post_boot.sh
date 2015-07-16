@@ -33,12 +33,6 @@ echo 2457600 > /sys/kernel/msm_limiter/resume_max_freq_3
 echo 1728000 > /sys/kernel/msm_limiter/suspend_max_freq
 
 ############################
-# MSM Thermal (Intelli-Thermal v2)
-#
-echo 1 > /sys/module/msm_thermal/core_control/enabled
-echo 1 > /sys/module/msm_thermal/parameters/enabled
-
-############################
 # Sweep2Sleep
 #
 echo 1 > /sys/android_touch/sweep2wake

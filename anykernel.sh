@@ -9,10 +9,10 @@ do.initd=1
 do.modules=0
 do.cleanup=0
 device.name1=vs985
-device.name2=LG G3
+device.name2=LG-VS985
 device.name3=LG
 device.name4=LGE
-device.name5=G3
+device.name5=LG G3
 
 # shell variables
 block=/dev/block/platform/msm_sdcc.1/by-name/boot;

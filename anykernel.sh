@@ -80,7 +80,8 @@ write_boot() {
     ui_print " "; ui_print "Repacking image failed. Aborting...";
     echo 1 > /tmp/anykernel/exitcode; exit;
   fi;
-  dd if=$bin/bump bs=1 count=32 >> /tmp/anykernel/boot-new.img
+  dd if=$bin/bump bs=1 count=32 >> /tmp/anykernel/boot-new.img;
+  dd if=/dev/zero of=$block;
   dd if=/tmp/anykernel/boot-new.img of=$block;
 }
 

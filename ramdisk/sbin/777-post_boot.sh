@@ -49,4 +49,10 @@ echo 1024 > /sys/block/mmcblk0/bdi/read_ahead_kb
 #
 echo 2 > /sys/android_touch/sweep2wake
 
+############################
+# Synapse + UKM Support
+#
+uci reset
+uci
+
 echo "[777-Kernel] Boot Script Completed!" | tee /dev/kmsg

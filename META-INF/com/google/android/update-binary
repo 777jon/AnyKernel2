@@ -116,8 +116,8 @@ chmod 0755 /system/etc/init.d/UKM;
 chmod 0755 /system/addon.d/UKM.sh;
 
 # Unmounting filesystems...
-/sbin/busybox umount /data";
-/sbin/busybox umount /system";
+/sbin/busybox umount /data;
+/sbin/busybox umount /system;
 
 ui_print "****************************************";
 ui_print "*          Install Complete!           *";

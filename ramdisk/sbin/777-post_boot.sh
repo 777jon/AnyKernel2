@@ -40,6 +40,11 @@ echo 0 > /sys/module/msm_thermal/core_control/enabled
 echo 1 > /sys/module/msm_thermal/parameters/enabled
 
 ############################
+# Alucard Touch Boost Settings
+#
+echo 1497600 > /sys/module/alu_t_boost/parameters/input_boost_freq
+
+############################
 # Tweak Background Writeout
 #
 echo 200 > /proc/sys/vm/dirty_expire_centisecs
